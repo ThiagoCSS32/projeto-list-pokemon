@@ -1,0 +1,218 @@
+Dev dobro Projeto Pokemon:
+
+Observações dentro de HTML, CSS e JS:
+
+Parte de HTML
+
+- Olhar o site como um conjunto de caixas.
+- Criar um botao atraves da imagem basta apenas envolver a tag img dentro de um button
+- span é usado para dar destaque a uma palavra ou frase, inves de usar p de paragrafo.
+
+Parte CSS
+incorporar um arquivo css ao html
+<link rel="stylesheet" href="style.css"> dentro da tag head.
+
+Como boa pratica é ideal criar um arquivo de reset do css e um arquivo para estilizar realmente o arquivo.
+
+Resetando o css
+- Margin: É espaçamento externo entre as caixas de elementos
+- Padding: É o espaçamento do conteudo interno e as bordas
+- box-sizing: border-box: Facilita trabalhar com larguras e alturas
+
+Propriedade para ul:
+list-style: none;  //Nenhum estilo para as listas, geralmente para tirar a bolinha preta.
+
+Finalizado o reset.
+
+Esttilizando a pagina Meus Pokemons
+
+Começando pelo body, vamos alterar a font que foi importada do google fonts poppins, seguido vamos definir a largura maxima com a propriedade "max-width"
+
+body{
+  margin: 0 auto;  //Margin 0 auto, significa espaço de margim 0 para cima e para baixo, e automatica para os lados.
+	          //esse é o modo encurtado, mas o correto são os quatro lados, em sentido horario margin: 0, auto, 0, auto (cima, direita, baixo, esquerda)		
+  font-family:'Poppins', san-serif;
+  max-width: 1200px;
+  background-color: #555; //define a cor de fundo do elemento, 
+  color: #444;   //define a cor da letra
+}
+
+O projeto, segue com a mudança de fundo por botao de no javascript então antecipamos uma class para mudar a cor de fundo do body.
+
+body.modo-escuro{
+    background-color: #212121;
+    color: #f5f5f5;
+}
+
+Dica sempre usar o background-color para marcar a div que estamos trabalhando.
+Trabalhando o header:
+header {
+    background-color:green; //Cor para marcar a area que estamos trabalhando
+}
+header .logo, header .imagem-botao{ 
+    width: 30px;;
+}
+
+Para trabalhar com uma class especifica na pagina que as vezes pode ter mais de uma, abrimos um header .nome_class{ }, no caso
+será trabalhada apenas a class que esta dentro da header. Voce pode colocar diretamente o nome da class mas se houver mais de uma na pagina
+pode dar problema na estilização.
+
+Flex-box
+Ajeitando as imagens/botão que compõe o header, nesse momento ambos estão alinhados a esqueda da margim.
+Para separar as imagens ja que queremos uma numa ponta e a outra na outra, podemos trabalhar usando o display:flex, do conceito de flex box,
+sempre que usar o display:flex, devemos lembrar que existe tag pai e filho, é na tag pai que deixamos as instruções de como a tag filha irá se
+comportar.
+
+header {
+    background-color:green;
+    display: flex;
+    justify-content: space-between;
+    padding: 25px;
+}
+
+No caso header é pai das tag de link, e o botão de alteração de cor de background., o display:flex, ja alinha automaticamente lado a lado os elementos
+pq ele por padrao vem com a propriedade, flex-direction:row ( direção em linha ) só seria necessario alterar caso quisessimos em coluna. "column"
+o padding é apenas para dar espaço nas bordas do conteudo e a margim.
+
+PSEUDO-CLASSE :hover 
+
+Para alterar os botões, tamanho efeito, podemos usar a pseudo-classe, hover. no exemplo após passar o mouse a imagem que representa o botão
+vai aumentar de tamanho e o cursor do mouse vai mudar para mao de clique.
+
+ header .logo:hover, 
+header .imagem-botao:hover{
+    transform: scale(1.05);  //Transformer trabalhar como o nome diz executando a transformação. nesse caso scale() que é uma função q recebe como parametro um numero de tamanho
+    cursor:pointer; // Pointer muda a seta do mouse para a mão.
+}
+
+Estilzando os CARDS:
+
+Neste ponto do projeto estamos trabalhando os cards;
+como eles estao dentro de uma lista não ordenada, ul, novamente usaremos o flex box, escolhendo display: flex, para colocar os elementos lado a lado,
+seguido de uma estilização de tamanho direto nos cards, definindo para 200px;
+voltamos a trabalhar com o flex box, agora usando o atributo flex-wrap: wrap no elemento pai na ul, que visa criar uma limitação e colocar os itens um
+abaixo do outro ao finalizar o espaço do pai. Por fim para criar um espaço entre as divs de cards, usamos a propriedade gap tb no elemento pai da lista
+na ul, gap: 30px. Gerando um espaço entre os cartões.
+
+.listagem-pokemon{
+    display: flex;
+    flex-wrap: wrap;
+    gap:30px;
+    justify-content: center;
+}
+main .cartao-pokemon{
+    background-color: #d8e3ec;
+    width: 200px; 
+}
+
+Estilização interna dos CARDS:
+ Agora estilizamos os cartões.
+
+main .cartao-pokemon{
+    background-color: #d8e3ec; //Novamente escolhemos um background para ver o fundo do cartão
+    width: 200px; // tamanho do cartão para definir o wrap no elemento pai.
+    padding: 15px; //Espaço interno dos elementos com a sbordas do cartao.
+    display:flex; //Colocar os conteudos lado a lado dentro do cartão
+    flex-direction: column; //Porém aqui definimos que será em coluna
+    align-items: center; //Com esta propriedade centralizamos os itens que compões o cards
+    gap: 15px; // espaço dos itens no cartao
+    border-radius: 15px; //Borda do cartão
+    transition: 0.2s ease-in-out; // OBS
+}
+Obs: transition é o controle do efeito de transição que pode ser aplicado, nos valores é 0.2s é o tempo do efeito, ele vai acontecer tanto na entrada
+quanto na saída. 
+
+header .logo:hover, 
+header .imagem-botao:hover,
+main .cartao-pokemon:hover{
+    transform: scale(1.05);
+    cursor:pointer;
+    transition: 0.2s ease-in-out;
+}
+
+Esse efeito de transição se pelo que ocorre anteriormente nos elementos do header, simplesmente o transforme pulava de tamanho com o valor
+scale(), agora ele respeita essa regra criada com o transition ele salta de forma suave quando passamos o mouse por cima.
+
+transform, transition e a pseudo classe hover podem trabalhar juntos.
+
+ESTILIZANDO O INTERIOR DOS CARDS:
+
+main .cartao-pokemon .informacoes {
+    display: flex;
+    justify-content: space-between;
+}
+
+main .cartao-pokemon .informacoes span {
+    background-color: aqua;
+    padding: 5px;
+    border: 2px solid;
+    border-radius: 5px;
+    
+
+Observação final a sequencia de estilição para ficar de forma organizada deve seguir a ordem, de separar por caixas os espaços, comeaçar a estilização
+de cima para baixo, de fora para dentro, ou seja ir trabalhando as tags de fora para dentro.
+
+ain .cartao-pokemon .tipos{
+    
+    display:flex;
+    gap:15px;
+}
+main .cartao-pokemon .tipos .tipo{
+    padding: 8px;
+    border-radius: 10px;
+    color:beige;
+}
+
+.grama{
+    background-color: greenyellow;
+}
+.fogo{
+    background-color: red;
+}
+.fantasma{
+    background-color: purple;
+}
+.psyco{
+    background-color: plum;
+}
+.agua {
+    background-color: blue;   
+}
+.eletrico{
+    background-color: yellow;
+}
+.gelo{
+    background-color:aquamarine;
+}
+.voador{
+    background-color: grey;
+}
+
+acima a estilização das caixas de textos de informações segundo suas classes.
+
+Vamos seguir estilizando a caixa de descrição;
+main .descricao{
+    max-height: 80px;
+    overflow:scroll;
+    font-size:14px;
+    padding-right:10px;
+}
+
+Estipulamos o max de altura do compo de texto com a propriedade max-height em 80px, deixamos como regra a propriedade overflow como 
+hidden como regra, esse valor esconde tudo que passa da medida estipulada, mas precisamos usar outro valor, que é o scroll, justamente para
+criar uma barra de rolagem, overflow:scroll, porem dessa forma ele cria duas barras inferior e lateral, so precisamos da lateral usamos então
+overflow-y:scroll que cria essa barra.
+
+/*Scrollbar CSS*/ scrollbar maneiro
+*::-webkit-scrollbar{
+    width:12px;
+}
+*::-webkit-scrollbar-track{ 
+    background:#f1f1f1;
+}
+*::-webkit-scrollbar-thumb{
+    background-color: #582965;
+    border-radius: 10px;
+    border: 3px solid #ffffff;
+}
+
